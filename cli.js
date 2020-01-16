@@ -10,32 +10,35 @@ const arg = require('arg')
 
 const args = arg({
   '--help': Boolean,
-  '--to': [String],
+  '--google': Boolean,
+  '--amazon': Boolean,
   '--bins': [String],
   '--name': String,
 
   '-h': '--help'
+}, {
+  permissive: true
 })
 
 if (args['--help']) {
-  console.log('Usage:\n bin2faas --to PLATFORMS --bins BINARYPATHS')
+  console.log('Usage:\n bin2faas [--google | --amazon] --name FUNCTIONNAME BINARYPATHS...')
   process.exit()
 }
-if (args['--bins'] == null || !args['--bins'].length) {
-  console.log("Please specify '--bins'")
-  process.exit()
-}
-if (args['--to'] == null || !args['--to'].length) {
-  console.log("Please specify '--to'")
+if (args['--google'] == null || args['--amazon'] == null) {
+  console.log('Please specify at least one of [--google | --amazon]')
   process.exit()
 }
 if (args['--name'] == null || !args['--name'].length) {
   console.log("Please specify '--name'")
   process.exit()
 }
+if(args._ == null) {
+  console.log('Please specify at least one binary path')
+  process.exit()
+}
 
 // write gcf source
-if (args['--to'].includes('google')) {
+if (args['--google']) {
   execSync('mkdir google')
 
   const fileContents = googleFactory({
@@ -52,11 +55,11 @@ if (args['--to'].includes('google')) {
     })
   })
 
-  execSync(`cp ${args['--bins'].join(' ')} ${path.join('google/')}`)
+  execSync(`cp ${args._.join(' ')} ${path.join('google/')}`)
 }
 
 // write lambda source
-if (args['--to'].includes('amazon')) {
+if (args['--amazon']) {
   // create output dir
   execSync('mkdir amazon')
 
@@ -77,5 +80,5 @@ if (args['--to'].includes('amazon')) {
     })
   })
 
-  execSync(`cp ${args['--bins'].join(' ')} ${path.join('amazon/')}`)
+  execSync(`cp ${args._.join(' ')} ${path.join('amazon/')}`)
 }
