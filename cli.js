@@ -37,16 +37,12 @@ function buildGoogleFolder (input, flags) {
     handler: 'runBins'
   })
 
-  console.log(fileContentsArray)
-
   // write FaaS source code to google/*
   fileContentsArray.forEach(fc => {
     fs.writeFile(path.join('google', fc.filename), fc.content, (err) => {
       if(err) throw err
     })
   })
-
-  console.log(input)
 
   // copy user-specified binaries into google/
   execSync(`cp ${input.join(' ')} google/`)
