@@ -1,5 +1,5 @@
 
-function build (config) {
+function generate (config) {
   const obj = {
     name: config.name,
     main: 'index.js',
@@ -16,4 +16,4 @@ function build (config) {
   }
 }
 
-module.exports = build
+module.exports = generate

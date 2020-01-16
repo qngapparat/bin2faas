@@ -12,7 +12,7 @@
     "bin2faas": "./cli.js"
   },
   "dependencies": {
-    "arg": "^4.1.2"
+    "meow": "^6.0.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
