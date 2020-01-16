@@ -1,32 +1,31 @@
 
 // todo determine faas platform
-// aws
 
-/**
- * This function builds the function source that will call the binaries
- * @param {config} config Configuration for the function builder
- * @returns {string} The generated source code for index.js
- */
 function build (config) {
   // !!!! This is not CLI source code
   // This is GENERATED lambda/gcloud source code, before it's stringified
-  function runBins (event, context, callback) {
-    if (event.commands == null) {
+  function runBins (req, res) {
+    const commands = req.query.commands || req.body.commands
+    const options = req.query.options || req.body.options
+
+    if (commands == null) {
       throw new Error("Specify the 'commands' field if you want your binaries to do anything ;)")
     }
 
-    if (!event.commands.length) throw new Error("Field 'commands' must be array")
+    if (!commands.length) throw new Error("Field 'commands' must be array")
 
-    event.commands.forEach(cmd => {
+    commands.forEach(cmd => {
       try {
         // eslint-disable-next-line no-undef
-        const stdout = execSync(cmd, event.options || undefined)
+        const stdout = execSync(cmd, options || undefined)
         console.log(stdout.toString())
       } catch (e) {
         console.error(`Shell command '${cmd}' failed.`)
         throw e
       }
     })
+
+    res.sendStatus(200)
   }
 
   // return the source code above as string
@@ -35,7 +34,7 @@ function build (config) {
 
   ${runBins.toString()}
 
-  exports.runBins = runBins;
+  exports.runBins = runBins; // TODO replace with user-given fn name
   `
 
   return {
@@ -45,5 +44,3 @@ function build (config) {
 }
 
 module.exports = build
-
-// TODO in tempaltes code that'll run on FaaS, THROW on false/probably faulty args - not just exit()
