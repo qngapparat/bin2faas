@@ -1,0 +1,25 @@
+{
+  "name": "bin2faas",
+  "version": "0.0.1",
+  "description": "Turn binaries into FaaS functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "qngapparat <jakob.wallnoefer@outlook.com>",
+  "license": "MIT",
+  "bin": {
+    "toool": "./cli.js"
+  },
+  "dependencies": {
+    "arg": "^4.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}

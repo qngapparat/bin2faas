@@ -1,0 +1,10 @@
+{
+  "name": "third",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Error: no test specified' && exit 1",
+    "createAmazon": "zip -r deploypackage.zip * ; aws lambda create-function --function-name second --runtime nodejs10.x --role arn:aws:iam::735406098573:role/lambdaexecute --handler index.runBins --zip-file fileb://deploypackage.zip",
+    "updateAmazon": "zip -r deploypackage.zip * ; aws lambda update-function-code --function-name second --zip-file fileb://deploypackage.zip; rm deploypackage.zip",
+    "createGoogle": "echo 'TODO'"
+  }
+}
