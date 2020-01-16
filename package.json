@@ -1,6 +1,6 @@
 {
   "name": "bin2faas",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Turn binaries into FaaS functions",
   "main": "index.js",
   "scripts": {
