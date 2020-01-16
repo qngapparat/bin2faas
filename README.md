@@ -22,19 +22,19 @@ $ bin2faas OPTIONS... BINARYPATHS...
 ### Create
 
 ```shell
-bin2faas --name myFirstFunc --amazon --google ./helloworld.out
+$ bin2faas --name myFirstFunc --amazon --google ./helloworld.out
 ```
 
 ### Deploy
 
 ```shell
-cd amazon
-npm run deploy
+$ cd amazon
+$ npm run deploy
 
 # or
 
-cd google
-npm run deploy
+$ cd google
+$ npm run deploy
 ```
 
 ### Call
